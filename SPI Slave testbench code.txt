@@ -1,0 +1,101 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 31.10.2025 23:20:16
+// Design Name: 
+// Module Name: spi_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+`timescale 1ns/1ps
+
+module tb_spi_slave_gate;
+
+    // Clock and control
+    reg sys_clk;
+    reg reset_n;
+
+    // SPI signals (driven by simulated master)
+    reg sclk;
+    reg ss;
+    reg mosi;
+    wire miso;
+
+    // Data monitoring
+    wire [7:0] miso_data;
+    reg  [7:0] master_tx_data;
+    reg  [7:0] slave_tx_data;
+    integer i;
+
+    // Instantiate the SPI Slave (Device Under Test)
+    spi_slave uut_slave (
+        .clk(sys_clk),
+        .reset_n(reset_n),
+        .SCLK(sclk),
+        .SS(ss),
+        .MOSI(mosi),
+        .MISO(miso),
+        .miso_data(miso_data),
+        .mosi_data(slave_tx_data),
+        .done()
+    );
+
+    // System clock generation (for internal slave logic)
+    initial sys_clk = 0;
+    always #5 sys_clk = ~sys_clk;  // 100 MHz
+
+    // Simulated SPI master stimulus
+    initial begin
+        // Initialize
+        sclk = 0;
+        ss   = 1; // Slave deselected
+        mosi = 0;
+        master_tx_data = 8'b1010_1100; // Data to send to slave
+        slave_tx_data  = 8'b0101_1010; // Data slave will send to master
+
+        reset_n = 0;
+        #50;
+        reset_n = 1;
+        #100;
+
+        // === Simulate SPI transaction ===
+        ss = 0; // Select slave
+        $display("Starting SPI transfer at time %t", $time);
+
+        for (i = 7; i >= 0; i = i - 1) begin
+            // Drive MOSI bit (Master ? Slave)
+            mosi = master_tx_data[i];
+
+            // Rising edge (slave samples MOSI)
+            #50 sclk = 1;
+
+            // Falling edge (master samples MISO)
+            #50 sclk = 0;
+
+            $display("Bit %0d sent = %b, MISO = %b", i, mosi, miso);
+        end
+
+        ss = 1; // Deselect slave
+        #100;
+
+        $display("Transfer complete at %t", $time);
+        $display("Slave received (miso_data) = %b", miso_data);
+
+        #100;
+        $finish;
+    end
+
+endmodule

@@ -1,0 +1,33 @@
+`timescale 1ns / 1ps
+module top_spi_master_zedboard(
+    input  wire clk,
+    input  wire reset_n,
+    input  wire start,        // From BTNU
+    input  wire [7:0] SW,     // 8 DIP switches
+    output wire MOSI,
+    input  wire MISO,
+    output wire SCLK,
+    output wire SS
+);
+
+    wire [7:0] tx_data;
+    wire [7:0] rx_data;
+    wire done;
+
+    // Send DIP switch values
+    assign tx_data = SW;
+
+    spi_master spi_inst (
+        .clk(clk),
+        .reset_n(reset_n),
+        .start(start),
+        .mosi_data(tx_data),
+        .miso_data(rx_data),
+        .done(done),
+        .SCLK(SCLK),
+        .MOSI(MOSI),
+        .MISO(MISO),
+        .SS(SS)
+    );
+
+endmodule

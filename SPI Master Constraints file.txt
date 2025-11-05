@@ -1,0 +1,58 @@
+###############################################################################
+# ZedBoard SPI Master Constraints (Fixed)
+# Target Device: XC7Z020CLG484-1
+# Project: SPI Communication Master (ZedBoard)
+###############################################################################
+
+## ------------------------------
+## Clock (100 MHz) - Bank 13 (3.3V)
+## ------------------------------
+set_property PACKAGE_PIN Y9 [get_ports clk]
+set_property IOSTANDARD LVCMOS33 [get_ports clk]
+create_clock -period 10.0 -name sys_clk -waveform {0 5} [get_ports clk]
+
+## ------------------------------
+## Reset Button (BTNC) - Bank 34 (1.8V)
+## ------------------------------
+set_property PACKAGE_PIN P16 [get_ports reset_n]
+set_property IOSTANDARD LVCMOS18 [get_ports reset_n]
+
+## ------------------------------
+## Start Button (BTNU) - Bank 34 (1.8V)
+## ------------------------------
+set_property PACKAGE_PIN R18 [get_ports start]
+set_property IOSTANDARD LVCMOS18 [get_ports start]
+
+## ------------------------------
+## DIP Switches SW[7:0] - Bank 35 (1.8V)
+## ------------------------------
+set_property PACKAGE_PIN F22 [get_ports {SW[0]}]
+set_property PACKAGE_PIN G22 [get_ports {SW[1]}]
+set_property PACKAGE_PIN H22 [get_ports {SW[2]}]
+set_property PACKAGE_PIN F21 [get_ports {SW[3]}]
+set_property PACKAGE_PIN H19 [get_ports {SW[4]}]
+set_property PACKAGE_PIN H18 [get_ports {SW[5]}]
+set_property PACKAGE_PIN H17 [get_ports {SW[6]}]
+set_property PACKAGE_PIN M15 [get_ports {SW[7]}]
+set_property IOSTANDARD LVCMOS18 [get_ports {SW[*]}]
+
+## ------------------------------
+## SPI Interface (PMOD JA) - Bank 13 (3.3V)
+## ------------------------------
+# JA1 = SS, JA2 = MOSI, JA3 = MISO, JA4 = SCLK
+set_property PACKAGE_PIN Y11  [get_ports SS]
+set_property PACKAGE_PIN AA11 [get_ports MOSI]
+set_property PACKAGE_PIN Y10  [get_ports MISO]
+set_property PACKAGE_PIN AA9  [get_ports SCLK]
+
+set_property IOSTANDARD LVCMOS33 [get_ports SS]
+set_property IOSTANDARD LVCMOS33 [get_ports MOSI]
+set_property IOSTANDARD LVCMOS33 [get_ports MISO]
+set_property IOSTANDARD LVCMOS33 [get_ports SCLK]
+
+## ------------------------------
+## Bank-wide I/O Voltage Declaration
+## ------------------------------
+set_property IOSTANDARD LVCMOS33 [get_ports -of_objects [get_iobanks 13]]
+set_property IOSTANDARD LVCMOS18 [get_ports -of_objects [get_iobanks 34]]
+set_property IOSTANDARD LVCMOS18 [get_ports -of_objects [get_iobanks 35]]

@@ -1,0 +1,80 @@
+`timescale 1ns / 1ps
+module spi_master(
+    input  wire clk,              // System clock (100 MHz)
+    input  wire reset_n,          // Active-low reset
+    input  wire start,            // Start signal to initiate SPI transfer
+    input  wire [7:0] mosi_data,  // Data to transmit
+    output reg  [7:0] miso_data,  // Data received from slave
+    output reg  done,             // Indicates transfer complete
+    output reg  SCLK,             // SPI Clock
+    output reg  MOSI,             // Master Out Slave In
+    input  wire MISO,             // Master In Slave Out
+    output reg  SS                // Slave Select (Active Low)
+);
+
+    // Internal signals
+    reg [3:0] bit_cnt;
+    reg [7:0] shift_reg;
+    reg [2:0] state;
+
+    parameter IDLE = 3'b000,
+              LOAD = 3'b001,
+              TRANSFER = 3'b010,
+              DONE = 3'b011;
+
+    // SPI master FSM
+    always @(posedge clk or negedge reset_n) begin
+        if(!reset_n) begin
+            state     <= IDLE;
+            SCLK      <= 0;
+            SS        <= 1;
+            MOSI      <= 0;
+            done      <= 0;
+            bit_cnt   <= 0;
+            miso_data <= 8'd0;
+            shift_reg <= 8'd0;
+        end else begin
+            case(state)
+                IDLE: begin
+                    done <= 0;
+                    SCLK <= 0;
+                    SS   <= 1;
+                    if(start)
+                        state <= LOAD;
+                end
+
+                LOAD: begin
+                    SS        <= 0;             // Activate slave
+                    shift_reg <= mosi_data;     // Load data
+                    bit_cnt   <= 7;             // 8 bits total
+                    state     <= TRANSFER;
+                end
+
+                TRANSFER: begin
+                    // Toggle SCLK at system clock rate / 2
+                    SCLK <= ~SCLK;
+
+                    if(SCLK == 0) begin
+                        // On rising edge of SCLK: drive MOSI
+                        MOSI <= shift_reg[bit_cnt];
+                    end else begin
+                        // On falling edge: sample MISO
+                        shift_reg[bit_cnt] <= MISO;
+                        if(bit_cnt == 0)
+                            state <= DONE;
+                        else
+                            bit_cnt <= bit_cnt - 1;
+                    end
+                end
+
+                DONE: begin
+                    SCLK      <= 0;
+                    SS        <= 1;             // Deactivate slave
+                    miso_data <= shift_reg;
+                    done      <= 1;
+                    state     <= IDLE;
+                end
+            endcase
+        end
+    end
+endmodule

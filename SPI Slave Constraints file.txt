@@ -1,0 +1,71 @@
+# ===========================================
+# System Clock - 3.3V, Bank 13
+# ===========================================
+set_property PACKAGE_PIN Y9 [get_ports clk]
+set_property IOSTANDARD LVCMOS18 [get_ports clk]
+create_clock -period 10.0 -name sys_clk -waveform {0 5} [get_ports clk]
+
+# ===========================================
+# Reset Button - 1.8V, Bank 34
+# ===========================================
+set_property PACKAGE_PIN P16 [get_ports reset_n]
+set_property IOSTANDARD LVCMOS18 [get_ports reset_n]
+
+# ===========================================
+# SPI Interface on PMOD JA - Bank 35, 1.8V
+# ===========================================
+# Master SCLK ? Slave SCLK (Input)
+set_property PACKAGE_PIN AA9 [get_ports SCLK]
+set_property IOSTANDARD LVCMOS18 [get_ports SCLK]
+
+# Master MOSI ? Slave MOSI (Input)
+set_property PACKAGE_PIN AA11 [get_ports MOSI]
+set_property IOSTANDARD LVCMOS18 [get_ports MOSI]
+
+# Master MISO ? Slave MISO (Output)
+set_property PACKAGE_PIN Y10 [get_ports MISO]
+set_property IOSTANDARD LVCMOS18 [get_ports MISO]
+
+# Master SS ? Slave SS (Input)
+set_property PACKAGE_PIN Y11 [get_ports SS]
+set_property IOSTANDARD LVCMOS18 [get_ports SS]
+
+# ===========================================
+# Notes
+# ===========================================
+# - Ensure both boards share a common GND.
+# - Master and slave PMOD connectors should be wired:
+#     Master.JA1 ? Slave.JA1 (SS)
+#     Master.JA2 ? Slave.JA2 (MOSI)
+#     Master.JA3 ? Slave.JA3 (SCLK)
+#     Master.JA4 ? Slave.JA4 (MISO)
+# - Bank 35 on ZedBoard operates at 1.8 V logic.
+
+
+
+# ----------------------------------------------------------------------------
+# User LEDs - Bank 33
+# ---------------------------------------------------------------------------- 
+set_property PACKAGE_PIN T22 [get_ports {LD[0]}];  # "LD0"
+set_property IOSTANDARD LVCMOS33 [get_ports LD[0]]
+
+set_property PACKAGE_PIN T21 [get_ports {LD[1]}];  # "LD1"
+set_property IOSTANDARD LVCMOS33 [get_ports LD[1]]
+
+set_property PACKAGE_PIN U22 [get_ports {LD[2]}];  # "LD2"
+set_property IOSTANDARD LVCMOS33 [get_ports LD[2]]
+
+set_property PACKAGE_PIN U21 [get_ports {LD[3]}];  # "LD3"
+set_property IOSTANDARD LVCMOS33 [get_ports LD[3]]
+
+set_property PACKAGE_PIN V22 [get_ports {LD[4]}];  # "LD4"
+set_property IOSTANDARD LVCMOS33 [get_ports LD[4]]
+
+set_property PACKAGE_PIN W22 [get_ports {LD[5]}];  # "LD5"
+set_property IOSTANDARD LVCMOS33 [get_ports LD[5]]
+
+set_property PACKAGE_PIN U19 [get_ports {LD[6]}];  # "LD6"
+set_property IOSTANDARD LVCMOS33 [get_ports LD[6]]
+
+set_property PACKAGE_PIN U14 [get_ports {LD[7]}];  # "LD7"
+set_property IOSTANDARD LVCMOS33 [get_ports LD[7]]

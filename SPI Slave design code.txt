@@ -1,0 +1,63 @@
+`timescale 1ns / 1ps
+module spi_slave(
+    input  wire        clk,         // System clock (not SPI clock)
+    input  wire        reset_n,     // Active-low reset
+    input  wire        SCLK,        // SPI clock from master
+    input  wire        SS,          // Slave select (active low)
+    input  wire        MOSI,        // Master Out Slave In
+    output reg         MISO,        // Master In Slave Out
+    output reg  [7:0]  miso_data,   // Data received from master
+    input  wire [7:0]  mosi_data,   // Data to send back
+    output reg         done         // Indicates data reception complete
+);
+
+    // Internal registers
+    reg [7:0] shift_in;
+    reg [7:0] shift_out;
+    reg [2:0] bit_cnt;
+    reg       sclk_prev;
+
+    always @(posedge clk or negedge reset_n) begin
+        if(!reset_n) begin
+            shift_in   <= 8'd0;
+            shift_out  <= 8'd0;
+            miso_data  <= 8'd0;
+            bit_cnt    <= 3'd0;
+            MISO       <= 1'b0;
+            done       <= 1'b0;
+            sclk_prev  <= 1'b0;
+        end else begin
+            sclk_prev <= SCLK;
+
+            if(!SS) begin
+                done <= 1'b0;
+
+                // Detect rising and falling edges of SCLK
+                if(sclk_prev == 0 && SCLK == 1) begin
+                    // Rising edge: sample MOSI
+                    shift_in <= {shift_in[6:0], MOSI};
+                    bit_cnt  <= bit_cnt + 1;
+                end
+                else if(sclk_prev == 1 && SCLK == 0) begin
+                    // Falling edge: drive MISO
+                    MISO <= shift_out[7];
+                    shift_out <= {shift_out[6:0], 1'b0};
+                end
+
+                // When 8 bits received
+                if(bit_cnt == 3'd7 && sclk_prev == 0 && SCLK == 1) begin
+                    miso_data <= {shift_in[6:0], MOSI};
+                    done <= 1'b1;
+                    bit_cnt <= 0;
+                    shift_out <= mosi_data; // Prepare next byte to send
+                end
+            end else begin
+                // When slave not selected
+                bit_cnt <= 0;
+                done <= 0;
+                MISO <= 0;
+                shift_out <= mosi_data;
+            end
+        end
+    end
+endmodule
