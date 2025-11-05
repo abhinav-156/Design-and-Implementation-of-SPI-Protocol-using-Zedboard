@@ -141,7 +141,7 @@ The experiment demonstrated reliable data transfer, proper synchronization, and 
 ## 📸 Project Images
 - `images/master_board_setup.jpg`  
 - `images/slave_board_setup.jpg`  
-- `images/simulation_waveform_master.png`  
+- `SPI Slave waveform.jpg`  
 - `images/simulation_waveform_slave.png`
 
 ---
