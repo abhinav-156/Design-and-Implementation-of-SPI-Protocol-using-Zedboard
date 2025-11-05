@@ -141,7 +141,7 @@ The experiment demonstrated reliable data transfer, proper synchronization, and 
 ## 📸 Project Images
 - `images/master_board_setup.jpg`  
 - `images/slave_board_setup.jpg`  
-- https://github.com/abhinav-156/Design-and-Implementation-of-SPI-Protocol-using-Zedboard/SPI Slave waveform.jpg 
+- https://github.com/abhinav-156/Design-and-Implementation-of-SPI-Protocol-using-Zedboard/blob/main/SPI%20Slave%20waveform.jpg
 - `images/simulation_waveform_slave.png`
 
 ---
