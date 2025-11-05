@@ -82,6 +82,12 @@ The SPI communication between the ZedBoards works on a **clock-driven data excha
 ## Report instance Areas (Slave board)
 ![WhatsApp Image 2025-11-05 at 17 45 41_2a94dc24](https://github.com/user-attachments/assets/9c34b2df-9d3b-475e-963e-0426ceb12f71)
 
+## Circuit Diagram of Master board
+![WhatsApp Image 2025-11-05 at 11 56 53_a4486387](https://github.com/user-attachments/assets/e72627b2-a844-4999-abaf-12ed4c6ffe33)
+
+## Circuit Diagram of Slave board
+![WhatsApp Image 2025-11-05 at 11 53 00_1d862944](https://github.com/user-attachments/assets/b49ad81e-1a2d-4545-89c5-820c9014c680)
+
 
 
 ## 🔧 Connection Diagram
