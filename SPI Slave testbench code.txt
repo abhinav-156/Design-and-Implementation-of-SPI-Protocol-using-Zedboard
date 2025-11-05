@@ -2,17 +2,14 @@
 `timescale 1ns/1ps
 module tb_spi_slave_gate;
 
-    // Clock and control
     reg sys_clk;
     reg reset_n;
-
-    // SPI signals (driven by simulated master)
     reg sclk;
     reg ss;
     reg mosi;
     wire miso;
 
-    // Data monitoring
+
     wire [7:0] miso_data;
     reg  [7:0] master_tx_data;
     reg  [7:0] slave_tx_data;
@@ -78,3 +75,4 @@ module tb_spi_slave_gate;
 
 
 endmodule
+
