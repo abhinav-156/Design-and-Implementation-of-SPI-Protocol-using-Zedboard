@@ -70,11 +70,19 @@ The SPI communication between the ZedBoards works on a **clock-driven data excha
    - **MOSI updates** on falling edge and **is sampled** on rising edge.
 
 ---
-## Report Cell Usage
+## Report Cell Usage (Master board)
 ![WhatsApp Image 2025-11-05 at 17 15 57_f556a851](https://github.com/user-attachments/assets/33f15025-282a-4c4e-a4e7-1a40a20f9128)
 
-## Report instance Areas
+## Report instance Areas (Master board)
 ![WhatsApp Image 2025-11-05 at 17 16 47_df2d5db7](https://github.com/user-attachments/assets/e020e692-23c1-40b2-ac64-cc8c53aa5890)
+
+## Report Cell Usage (Slave board)
+![WhatsApp Image 2025-11-05 at 17 44 59_b45f0961](https://github.com/user-attachments/assets/90287f0d-0df4-4051-a34b-751ecd7cb2f5)
+
+## Report instance Areas (Slave board)
+![WhatsApp Image 2025-11-05 at 17 45 41_2a94dc24](https://github.com/user-attachments/assets/9c34b2df-9d3b-475e-963e-0426ceb12f71)
+
+
 
 ## 🔧 Connection Diagram
 | Signal | Master (JA Header) | Slave (JA Header) | Direction |
