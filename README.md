@@ -134,7 +134,8 @@ Simulation and hardware testing confirmed accurate bit-level synchronization bet
 
 ---
 ## Waveform of Master board
-![Uploading WhatsApp Image 2025-11-05 at 12.32.13_39ba734f.jpg…]()
+![WhatsApp Image 2025-11-05 at 12 47 51_84635365](https://github.com/user-attachments/assets/5e72e474-8bba-448b-997e-8062bee3c6e3)
+
 
 ## Waveform of Slave board
 ![Uploading WhatsApp Image 2025-11-05 at 12.36.01_95519443.jpg…]()
