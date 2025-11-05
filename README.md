@@ -133,6 +133,12 @@ Simulation and hardware testing confirmed accurate bit-level synchronization bet
 - Simulation waveforms verified the **synchronous timing** of SPI signals.
 
 ---
+## Waveform of Master board
+![Uploading WhatsApp Image 2025-11-05 at 12.32.13_39ba734f.jpg…]()
+
+## Waveform of Slave board
+![Uploading WhatsApp Image 2025-11-05 at 12.36.01_95519443.jpg…]()
+
 
 ## ✅ Advantages
 - High-speed synchronous data transfer.  
