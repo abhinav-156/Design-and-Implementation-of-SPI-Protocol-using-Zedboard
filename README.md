@@ -1,4 +1,3 @@
-# 🧠 Design and Implementation of SPI Protocol using Two ZedBoards (Master–Slave Configuration)
 
 ### Indian Institute of Information Technology, Design and Manufacturing, Kurnool  
 **Submitted by:** V. Abhinav  
@@ -71,6 +70,11 @@ The SPI communication between the ZedBoards works on a **clock-driven data excha
    - **MOSI updates** on falling edge and **is sampled** on rising edge.
 
 ---
+## Report Cell Usage
+![WhatsApp Image 2025-11-05 at 17 15 57_f556a851](https://github.com/user-attachments/assets/33f15025-282a-4c4e-a4e7-1a40a20f9128)
+
+## Report instance Areas
+![WhatsApp Image 2025-11-05 at 17 16 47_df2d5db7](https://github.com/user-attachments/assets/e020e692-23c1-40b2-ac64-cc8c53aa5890)
 
 ## 🔧 Connection Diagram
 | Signal | Master (JA Header) | Slave (JA Header) | Direction |
